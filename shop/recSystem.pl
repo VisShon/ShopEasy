@@ -1,27 +1,32 @@
-product('sandal','Women Clothing',300,100,true).
-product('high heels','Women Clothing',300,100,true).
-product('Oneplus','Electronics',300,100,true).
-product('Table','Furniture',300,100,true).
-product('Prestige','Women Clothing',300,100,true).
+product( "fabhomedecor fabric double sofa bed","furniture","living room furniture",32157,22646,9511,"false",0,"fabhomedecor").
+product( "rapter bnc-179 bnc wire connector","household","tools & hardware",2299,1400,899,"false",0,"rapter").
+product( "rapter bnc-047 bnc wire connector","household","tools & hardware",1299,899,400,"false",0,"rapter").
+product( "elegance polyester multicolor abstract eyelet door curtain","furniture","home furnishing",1899,899,1000,"false",0,"elegance").
+product( "santosh royal fashion cotton printed king sized double bedsheet","furniture","home furnishing",2699,1299,1400,"false",0,"santosh royal fashion").
+product( "jaipur print cotton floral king sized double bedsheet","furniture","home furnishing",2599,698,1901,"false",0,"jaipur print").
+product( "first choice cotton embroidered diwan set","furniture","home furnishing",2199,979,1220,"false",0,"first choice").
+product( "santosh royal fashion cotton embroidered diwan set","furniture","home furnishing",2199,979,1220,"false",0,"santosh royal fashion").
+product( "house this queen cotton duvet cover","furniture","home furnishing",1160,1160,0,"false",0,"house this").
+product( "skipper blends aqua striped eyelet window curtain","furniture","home furnishing",1733,1039,694,"false",0,"skipper").
+product( "kings multicolor tassels","furniture","home furnishing",1000,249,751,"false",0,"kings").
 
 
 
 
-# Helper Function
+
 print_list([]):- nl.
-print_list([H|T]):-write(H),write(' '),print_list(T).  #recursive function to print a list
-
-sortWithPrice(Unsorted,Sorted):-
-
-sortWithRating(Unsorted,Sorted):-
-
-selectSubCategory(A,S,J):-
-    
-
-recommendProducts(Category,P,B,I):-
+print_list([H|T]):-write(H),write(' '),print_list(T).
 
 
-LIST(electronics,item, X,Y,Z)
+subCat(S, J, O) 		:- S == 'a', J == 'a', O = 'home & kitchen, home furnishing, pens & stationaries, home decor & festive needs, home entertainment'. 
+subCat(S, J, O) 		:- S == 'a', J == 'b', O = 'home & kitchen, home furnishing, pens & stationaries, home entertainment'. 
+subCat(S, J, O) 		:- S == 'a', J == 'c', O = 'home & kitchen, pens & Stationaries, home decor and festive needs, home entertainment'.
+subCat(S, J, O) 		:- S == 'a', J == 'd', O = 'home & kitchen, home furnishing, pens & stationaries, home decor and festive needs, home entertainment'.
+subCat(S, J, O) 		:- S == 'b', J == 'a', O = 'pen & stationaries, mobile & accessories, mobile & accessories'.
+subCat(S, J, O) 		:- S == 'b', J == 'b', O = 'tools & hardware, mobile & accessories, mobile & accessories'. 
+subCat(S, J, O) 		:- S == 'b', J == 'c', O = 'tools & hardware, furniture, mobile & accessories'.
+subCat(S, J, O) 		:- S == 'b', J == 'd', O = 'furniture, mobile & accessories'.
+subCat(S, J, O).
 
 start:-
 
@@ -32,7 +37,7 @@ start:-
 		write('   What is your name? '),nl,
 		read(Name),nl,
 
-#       To Select Subcategories.
+
 		write('   Hi there '),write(Name),nl,
         write('   What is your sex? '),nl,
         write('a. Female'),nl,
@@ -52,36 +57,30 @@ start:-
         write('d. Retired'),nl,
         read(Job),nl,
 
-        write('   What category of product you want to buy'),nl,
+        write('   What category of product you want to buy? '),nl,
         write('a. Electronics'),nl,
         write('b. Furniture'),nl,
         write('c. Household'),nl,
         read(Category),nl,
 
-#   function for sbcategory
-        write(' We recommend you the following sub-category')
-        
+        write(' We recommend you the following sub-category? '),nl,
+        subCat(Sex,Job,SC),nl,
+        write(SC),nl,
+        write(' Please Select a sub-category? '),nl,
+        read(SubCategory),nl,
 
-#       To narrow down products.
-        write('   What is your budget '),nl,
-        write('a. under ₹1000'),nl,
-        write('b. under ₹5000'),nl,
-        write('c. under ₹10000'),nl,
-        write('d. above ₹10000'),nl,
-        read(Budget),nl,  
+        write('   Are you a Premium user? '),nl,
+        write('a. true'),nl,
+        write('b. false'),nl,
+        read(IsPremium),nl,
 
-        write('   Are you a Premium user '),nl,
-        write('a. Yes'),nl,
-        write('b. No'),nl,
-        read(isPremium),nl,
-
-#       To start the process.
 
         write('   What is your preferrence? '),nl,
         write('a. Price'),nl,
         write('b. Quality'),nl,
         read(Preferrence),nl,
 
-
+        findall(Products,product(Products,_,SubCategory,_,_,_,IsPremium,_,_),Result),
+        print_list(Result),
 
 		write('We thank you for your honest answers and now be prepared to witness the magic of shop easy').
